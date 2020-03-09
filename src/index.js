@@ -1,8 +1,9 @@
 import './scss/index.scss';
+import renderStars from './js/renderStar';
 
 
 function f() {
-    document.body.insertAdjacentHTML('beforeend', '<div>Привет мир!</div>');
+    renderStars();
 }
 
 f();
