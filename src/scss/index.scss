@@ -1,0 +1,13 @@
+$blue: #056ef0;
+
+body {
+    display: flex;
+
+    @media (min-width: 768px) {
+        background: green;
+    }
+}
+
+p {
+    margin: 0;
+}

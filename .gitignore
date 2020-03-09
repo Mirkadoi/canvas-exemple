@@ -1,0 +1,7 @@
+# WebStorm
+.idea
+
+# Node
+node_modules
+build
+dist
