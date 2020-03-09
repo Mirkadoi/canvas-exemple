@@ -47,7 +47,10 @@ module.exports = {
     },
 
     plugins: [
-        new HtmlWebpackPlugin({ template: 'src/index.html' }),
+        new HtmlWebpackPlugin({
+            template: 'src/index.html',
+            inject: 'body',
+        }),
         new CleanWebpackPlugin(),
         new CopyPlugin([{
             from: 'public',
