@@ -1,7 +1,4 @@
-body {
+.canvas-composition {
     display: flex;
-}
-
-p {
-    margin: 0;
+    flex-direction: column;
 }

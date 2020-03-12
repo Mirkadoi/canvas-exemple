@@ -1,4 +1,3 @@
-
 const renderStar = (ctx, star) => {
     const context = ctx;
     const {
@@ -24,7 +23,37 @@ const renderStar = (ctx, star) => {
     context.fill();
 };
 
-const renderStars = (callback, initIndicatorColor) => {
+const handleClick = ({ clientX, clientY }, params) => {
+    const [
+        canvas,
+        ctx,
+        starsOptions,
+        callback,
+        initIndicatorColor,
+    ] = params;
+    const mousePos = {
+        x: clientX - canvas.offsetLeft,
+        y: clientY - canvas.offsetTop,
+    };
+
+    const pixel = ctx.getImageData(mousePos.x, mousePos.y, 1, 1).data;
+    const color = `rgba(${pixel[0]},${pixel[1]},${pixel[2]},${pixel[3]})`;
+    const colorSum = pixel[0] + pixel[1] + pixel[2] + pixel[3];
+
+    if (!colorSum) {
+        callback(initIndicatorColor);
+        return;
+    }
+
+    starsOptions.map(({ color: colorStar }) => {
+        if (colorStar === color) {
+            return callback(color);
+        }
+        return null;
+    });
+};
+
+const renderStars = (callback, initIndicatorColor, canvasComposition) => {
     const starsOptions = [
         {
             color: 'rgba(255,0,0,255)',
@@ -53,7 +82,7 @@ const renderStars = (callback, initIndicatorColor) => {
         },
     ];
 
-    document.body.insertAdjacentHTML(
+    canvasComposition.insertAdjacentHTML(
         'beforeend',
         `<div>
                   <canvas
@@ -66,29 +95,17 @@ const renderStars = (callback, initIndicatorColor) => {
     );
     const canvas = document.getElementById('stars-canvas');
     const ctx = canvas.getContext('2d');
+    const handleClickParams = [
+        canvas,
+        ctx,
+        starsOptions,
+        callback,
+        initIndicatorColor,
+    ];
 
     starsOptions.map((item) => renderStar(ctx, item));
 
-    canvas.addEventListener('click', ({ clientX, clientY }) => {
-        const mousePos = {
-            x: clientX - canvas.offsetLeft,
-            y: clientY - canvas.offsetTop,
-        };
-
-        const pixel = ctx.getImageData(mousePos.x, mousePos.y, 1, 1).data;
-        const color = `rgba(${pixel[0]},${pixel[1]},${pixel[2]},${pixel[3]})`;
-        const colorSum = pixel[0] + pixel[1] + pixel[2] + pixel[3];
-
-        starsOptions.forEach(({ color: colorStar }) => {
-            if (!colorSum) {
-                callback(initIndicatorColor);
-                return;
-            }
-            if (colorStar === color) {
-                callback(colorStar);
-            }
-        });
-    });
+    canvas.addEventListener('click', (e) => handleClick(e, handleClickParams));
 };
 
 export default renderStars;

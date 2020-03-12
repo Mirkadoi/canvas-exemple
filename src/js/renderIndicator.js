@@ -1,6 +1,12 @@
 
-const renderIndicator = (backgroundColor) => {
-    document.body.insertAdjacentHTML(
+const renderIndicator = (backgroundColor, canvasComposition) => {
+    let canvas;
+    canvas = document.getElementById('indicator-canvas');
+    if (canvas) {
+        canvas.style.backgroundColor = backgroundColor;
+        return;
+    }
+    canvasComposition.insertAdjacentHTML(
         'beforeend',
         `<div>
                   <canvas
@@ -11,7 +17,8 @@ const renderIndicator = (backgroundColor) => {
                   ></canvas>
               </div>`,
     );
-    const canvas = document.getElementById('indicator-canvas');
+
+    canvas = document.getElementById('indicator-canvas');
     canvas.style.backgroundColor = backgroundColor;
 };
 
