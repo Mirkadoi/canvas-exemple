@@ -1,11 +1,4 @@
-body {
+.canvas-composition {
     display: flex;
-
-    @media (min-width: 768px) {
-        background: green;
-    }
-}
-
-p {
-    margin: 0;
+    flex-direction: column;
 }
