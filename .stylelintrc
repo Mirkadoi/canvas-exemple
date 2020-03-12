@@ -1,9 +1,12 @@
 {
-  "extends": "stylelint-config-airbnb",
-  "plugins": [
-    "stylelint-scss"
-  ],
-  "rules": {
-      "indentation": 4
-  }
+    "extends": "stylelint-config-airbnb",
+    "plugins": [
+        "stylelint-scss"
+    ],
+    "rules": {
+        "indentation": 4
+    },
+    "ignoreFiles": [
+        "./build/css/*.css"
+    ]
 }
